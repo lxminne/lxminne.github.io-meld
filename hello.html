@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>  
+  <head>
+    <title>Hello!</title>
+    <script src="https://unpkg.com/jspsych@8.2.2"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@2.1.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-button-response@2.1.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-preload@2.1.0"></script>
+    <link href="https://unpkg.com/jspsych@8.2.2/css/jspsych.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body></body>
+  <script>
+    // initialize jsPsych
+    var jsPsych = initJsPsych();
+
+    // set up timeline
+    var timeline = [];
+
+    // preload images here to avoid delays later!
+    var preload = {
+        type: jsPsychPreload,
+        images: ['img/goodbye.png']
+    }
+    timeline.push(preload);
+
+    // welcome/page 1
+    var welcome = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: "Hi! I'm Josie.",
+        prompt: "<i>Press any key to continue.</i>"
+    };
+    timeline.push(welcome);
+
+    var page2 = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus:"I'm a Math and CS major at UW with a strong interest in Math education.",
+        prompt: "<i>Press any key to continue.</i>"
+    };
+    timeline.push(page2);
+
+    var page3 = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus:"I'd love to work with the team at MELD and be a part of research to improve math education and our understanding of cognition.",
+        prompt: "<i>Press any key to continue.</i>"
+    };
+    timeline.push(page3);
+
+    var page4 = {
+        type: jsPsychHtmlButtonResponse,
+        stimulus:`
+            <div style="text-align:center;">
+            <img src="img/goodbye.png" alt="A doodle of me saying thank you!" width="600"><br>
+            <p>Thanks so much for your consideration! Click below to restart:</p>
+            </div>
+            `,
+        choices: ["Restart"],
+        on_finish: function() {
+            window.location.reload();
+        }
+    };
+    timeline.push(page4);
+
+    jsPsych.run(timeline);
+
+  </script>
+</html>
